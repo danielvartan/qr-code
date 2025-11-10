@@ -35,7 +35,7 @@ library(rsvg)
   )
 ```
 
-## Generate QR Code
+## Generate the QR Code
 
 ```{r}
 #| label: Generate QR Code
@@ -55,7 +55,7 @@ library(rsvg)
 
 ![](images/qr-code.svg){fig-align="center" style="width: 50%"}
 
-## Add Frame
+## Add a Frame
 
 ```{r}
 #| label: Add Frame
