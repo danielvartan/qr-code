@@ -1,5 +1,7 @@
 # qr-code 0.2.0.9000 (development version)
 
+- Added an outline text in the QR Code Frame.
+
 # qr-code 0.2.0
 
 - Added transparency support.

@@ -45,6 +45,10 @@ link <- "https://github.com/danielvartan"
 logo <- here("images", "github-icon.svg")
 ```
 
+```{r}
+frame <- here("images", "qr-code-frame.svg")
+```
+
 ## Generate the QR Code
 
 ```{r}
@@ -115,7 +119,7 @@ image_display(qr_code)
 
 ```{r}
 frame <-
-  here("images", "frame.svg") |>
+  frame |>
   image_read_svg(width = 550, height = 650)
 ```
 

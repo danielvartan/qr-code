@@ -11,7 +11,7 @@
     "href": "index.html#set-the-environment",
     "title": "A Reproducible Pipeline for Creating QR Codes in R",
     "section": "Set the Environment",
-    "text": "Set the Environment\nLoad Packages\n\nlibrary(here)\nlibrary(magick)\nlibrary(qrcode)\nlibrary(rsvg)\n\nSet Initial Variables\n\nlink &lt;- \"https://github.com/danielvartan\"\n\n\nlogo &lt;- here(\"images\", \"github-icon.svg\")"
+    "text": "Set the Environment\nLoad Packages\n\nlibrary(here)\nlibrary(magick)\nlibrary(qrcode)\nlibrary(rsvg)\n\nSet Initial Variables\n\nlink &lt;- \"https://github.com/danielvartan\"\n\n\nlogo &lt;- here(\"images\", \"github-icon.svg\")\n\n\nframe &lt;- here(\"images\", \"qr-code-frame.svg\")"
   },
   {
     "objectID": "index.html#generate-the-qr-code",
@@ -32,7 +32,7 @@
     "href": "index.html#add-a-frame",
     "title": "A Reproducible Pipeline for Creating QR Codes in R",
     "section": "Add a Frame",
-    "text": "Add a Frame\n\nqr_code &lt;-\n  here(\"images\", \"qr-code-with-logo.svg\") |&gt;\n  image_read() |&gt;\n  image_trim() |&gt;\n  image_resize(\"450x450!\")\n\n\nimage_info(qr_code)\n\n\n  \n\n\n\n\nframe &lt;-\n  here(\"images\", \"frame.svg\") |&gt;\n  image_read_svg(width = 550, height = 650)\n\n\nimage_info(frame)\n\n\n  \n\n\n\n\ncomposite &lt;- image_composite(\n  image = frame,\n  composite_image = qr_code,\n  offset = \"+50 +50\"\n)\n\n\nimage_info(composite)\n\n\n  \n\n\n\n\ncomposite |&gt;\n  image_write(\n    path = here(\"images\", \"qr-code-composite.png\"),\n    format = \"png\",\n    quality = 100\n  )"
+    "text": "Add a Frame\n\nqr_code &lt;-\n  here(\"images\", \"qr-code-with-logo.svg\") |&gt;\n  image_read() |&gt;\n  image_trim() |&gt;\n  image_resize(\"450x450!\")\n\n\nimage_info(qr_code)\n\n\n  \n\n\n\n\nframe &lt;-\n  frame |&gt;\n  image_read_svg(width = 550, height = 650)\n\n\nimage_info(frame)\n\n\n  \n\n\n\n\ncomposite &lt;- image_composite(\n  image = frame,\n  composite_image = qr_code,\n  offset = \"+50 +50\"\n)\n\n\nimage_info(composite)\n\n\n  \n\n\n\n\ncomposite |&gt;\n  image_write(\n    path = here(\"images\", \"qr-code-composite.png\"),\n    format = \"png\",\n    quality = 100\n  )"
   },
   {
     "objectID": "index.html#license",
