@@ -8,11 +8,26 @@
 
 ## Overview
 
-This repository provides a reproducible pipeline for generating QR Codes in [R](https://www.r-project.org/).
+This report presents a reproducible workflow for generating QR codes in [R](https://www.r-project.org/).
+
+You can also use the [`qr_code()`](https://danielvartan.github.io/rutils/reference/qr_code.html) function from the [`rutils`](https://danielvartan.github.io/rutils/) package to automate the process.
 
 The pipeline report is available [here](https://danielvartan.github.io/qr-code/).
 
 > If you find this project useful, please consider giving it a star! [![GitHub repo stars](https://img.shields.io/github/stars/danielvartan/qr-code)](https://github.com/danielvartan/qr-code/)
+
+<table align="center">
+  <tr align="center">
+    <td>QR Code</td>
+      <td>+ Logo</td>
+      <td>+ Frame</td>
+  </tr>
+  <tr>
+    <td><img src="images/qr-code.svg" height=200></td>
+    <td><img src="images/qr-code-with-logo.svg" height=200></td>
+    <td><img src="images/qr-code-composite.png" height=250></td>
+  </tr>
+</table>
 
 ## Usage
 

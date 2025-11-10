@@ -6,13 +6,17 @@
 
 ## Overview
 
-This report provides a reproducible pipeline for generating QR Codes in [R](https://www.r-project.org/).
+This report presents a reproducible workflow for generating QR codes in [R](https://www.r-project.org/).
 
-See the code repository [README](https://github.com/danielvartan/qr-code#qr-code) to learn more about the implementation details.
+You can also use the [`qr_code()`](https://danielvartan.github.io/rutils/reference/qr_code.html) function from the [`rutils`](https://danielvartan.github.io/rutils/) package to automate the process.
+
+For more details about the implementation, see the [README](https://github.com/danielvartan/qr-code#qr-code) in the code repository.
 
 > If you find this project useful, please consider giving it a star! [![GitHub repo stars](https://img.shields.io/github/stars/danielvartan/qr-code)](https://github.com/danielvartan/qr-code/)
 
 ## Set the Environment
+
+### Load Packages
 
 ```{r}
 #| label: Set the Environment
@@ -31,28 +35,26 @@ library(downlit)
 library(xml2)
 ```
 
-```{r}
-#| include: false
+### Set Initial Variables
 
-"https://linktr.ee/danielvartan" |>
-  qr_code(ecl = "H") |>
-  generate_svg(
-    filename = here("images", "favicon.svg"),
-    size = 500 # in pixels
-  )
+```{r}
+link <- "https://github.com/danielvartan"
+```
+
+```{r}
+logo <- here("images", "github-icon.svg")
 ```
 
 ## Generate the QR Code
 
 ```{r}
-#| label: Generate QR Code
+#| label: Generate the QR Code
 
-"https://linktr.ee/danielvartan" |>
-  qr_code(ecl = "H") |>
-  add_logo(
-    logo = here("images", "linktree-icon.svg"),
-    ecl = "L"
-  ) |>
+qr_code <- link |> qr_code(ecl = "H")
+```
+
+```{r}
+qr_code |>
   generate_svg(
     filename = here("images", "qr-code.svg"),
     size = 530,
@@ -60,7 +62,33 @@ library(xml2)
   )
 ```
 
+```{r}
+#| include: false
+
+file.copy(
+  from = here("images", "qr-code.svg"),
+  to = here("images", "favicon.svg"),
+  overwrite = TRUE
+)
+```
+
 ![](images/qr-code.svg){fig-align="center" style="width: 50%"}
+
+## Add a Logo
+
+```{r}
+#| label: Generate QR Code
+
+qr_code |>
+  add_logo(logo = logo, ecl = "L") |>
+  generate_svg(
+    filename = here("images", "qr-code-with-logo.svg"),
+    size = 530,
+    show = FALSE
+  )
+```
+
+![](images/qr-code-with-logo.svg){fig-align="center" style="width: 50%"}
 
 ## Add a Frame
 
@@ -68,9 +96,10 @@ library(xml2)
 #| label: Add Frame
 
 qr_code <-
-  here("images", "qr-code.svg") |>
+  here("images", "qr-code-with-logo.svg") |>
   image_read() |>
-  image_trim()
+  image_trim() |>
+  image_resize("450x450!")
 ```
 
 ```{r}
@@ -87,7 +116,7 @@ image_display(qr_code)
 ```{r}
 frame <-
   here("images", "frame.svg") |>
-  image_read()
+  image_read_svg(width = 550, height = 650)
 ```
 
 ```{r}
@@ -95,10 +124,17 @@ image_info(frame)
 ```
 
 ```{r}
+#| eval: false
+#| include: false
+
+image_display(frame)
+```
+
+```{r}
 composite <- image_composite(
   image = frame,
   composite_image = qr_code,
-  offset = "+50+50"
+  offset = "+50 +50"
 )
 ```
 
@@ -118,8 +154,7 @@ composite |>
   image_write(
     path = here("images", "qr-code-composite.png"),
     format = "png",
-    quality = 100,
-    flatten = TRUE
+    quality = 100
   )
 ```
 
