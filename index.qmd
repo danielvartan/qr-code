@@ -1,0 +1,144 @@
+<!-- badges: start -->
+[![Project Status: Inactive – The project has reached a stable, usable state but is no longer being actively developed; support/maintenance will be provided as time allows.](https://www.repostatus.org/badges/latest/inactive.svg)](https://www.repostatus.org/#inactive)
+[![License: GPLv3](https://img.shields.io/badge/license-GPLv3-bd0000.svg)](https://www.gnu.org/licenses/gpl-3.0)
+[![License: CC BY-NC-SA 4.0](https://img.shields.io/badge/license-CC_BY--NC--SA_4.0-lightgrey.svg)](https://creativecommons.org/licenses/by-nc-sa/4.0/)
+<!-- badges: end -->
+
+## Overview
+
+This report provides a reproducible pipeline for generating QR Codes in [R](https://www.r-project.org/).
+
+See the code repository [README](https://github.com/danielvartan/qr-code#qr-code) to learn more about the implementation details.
+
+> If you find this project useful, please consider giving it a star! [![GitHub repo stars](https://img.shields.io/github/stars/danielvartan/qr-code)](https://github.com/danielvartan/qr-code/)
+
+## Set the Environment
+
+```{r}
+#| label: Set the Environment
+#| output: false
+
+library(here)
+library(magick)
+library(qrcode)
+library(rsvg)
+```
+
+```{r}
+#| include: false
+
+"https://linktr.ee/danielvartan" |>
+  qr_code(ecl = "H") |>
+  generate_svg(
+    filename = here("images", "favicon.svg"),
+    size = 500 # in pixels
+  )
+```
+
+## Generate QR Code
+
+```{r}
+#| label: Generate QR Code
+
+"https://linktr.ee/danielvartan" |>
+  qr_code(ecl = "H") |>
+  add_logo(
+    logo = here("images", "linktree-icon.svg"),
+    ecl = "L"
+  ) |>
+  generate_svg(
+    filename = here("images", "qr-code.svg"),
+    size = 530,
+    show = FALSE
+  )
+```
+
+![](images/qr-code.svg){fig-align="center" style="width: 50%"}
+
+## Add Frame
+
+```{r}
+#| label: Add Frame
+
+qr_code <-
+  here("images", "qr-code.svg") |>
+  image_read() |>
+  image_trim()
+```
+
+```{r}
+image_info(qr_code)
+```
+
+```{r}
+#| eval: false
+#| include: false
+
+image_display(qr_code)
+```
+
+```{r}
+frame <-
+  here("images", "frame.svg") |>
+  image_read()
+```
+
+```{r}
+image_info(frame)
+```
+
+```{r}
+composite <- image_composite(
+  image = frame,
+  composite_image = qr_code,
+  offset = "+50+50"
+)
+```
+
+```{r}
+image_info(composite)
+```
+
+```{r}
+#| eval: false
+#| include: false
+
+image_display(composite)
+```
+
+```{r}
+composite |>
+  image_write(
+    path = here("images", "qr-code-composite.png"),
+    format = "png",
+    quality = 100,
+    flatten = TRUE
+  )
+```
+
+![](images/qr-code-composite.png){fig-align="center" style="width: 50%"}
+
+## License
+
+::: {style="text-align: left;"}
+[![License: GPLv3](https://img.shields.io/badge/license-GPLv3-bd0000.svg)](https://www.gnu.org/licenses/gpl-3.0)
+[![License: CC BY-NC-SA 4.0](https://img.shields.io/badge/license-CC_BY--NC--SA_4.0-lightgrey.svg)](https://creativecommons.org/licenses/by-nc-sa/4.0/)
+:::
+
+The code in this report is licensed under the [GNU General Public License Version 3](https://www.gnu.org/licenses/gpl-3.0), while the report is available under the [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International](https://creativecommons.org/licenses/by-nc-sa/4.0/).
+
+``` text
+Copyright (C) 2025 Daniel Vartanian
+
+The code in this report is free software: you can redistribute it and/or
+modify it under the terms of the GNU General Public License as published by the
+Free Software Foundation, either version 3 of the License, or (at your option)
+any later version.
+
+This program is distributed in the hope that it will be useful, but WITHOUT ANY
+WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+PARTICULAR PURPOSE. See the GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License along with
+this program. If not, see <https://www.gnu.org/licenses/>.
+```

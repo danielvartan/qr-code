@@ -1,0 +1,59 @@
+editor: source
+
+execute:
+  cache: false # "Danger Will Robinson!"
+  freeze: false # If you plan to use it, remember to disable it afterward!
+
+project:
+  type: website
+  output-dir: docs
+  render: [index.qmd]
+  post-render: "R/_post-render.R"
+
+title: A Reproducible Pipeline for Creating QR Codes in R
+author: "Daniel Vartanian"
+keyword: >
+  QR Codes, Pipelines, Graphic Design, Design Automation, Programmatic Graphics
+date: today
+date-format: long
+
+website:
+  favicon: images/favicon.svg
+  site-url: https://danielvartan.github.io/qr-code/
+  repo-url: https://github.com/danielvartan/qr-code/
+  issue-url: https://github.com/danielvartan/qr-code/issues/
+  repo-branch: main
+  repo-actions: [edit, source, issue]
+  search: false
+  navbar:
+    title: false
+    # background: "#000000"
+    right:
+      - icon: github
+        href: https://github.com/danielvartan/qr-code/
+        aria-label: GitHub
+
+lightbox:
+  match: auto
+  effect: fade
+  desc-position: bottom
+  loop: false
+
+format:
+  html:
+    toc: true
+    toc-depth: 5
+    toc-location: right
+    locale: en
+    language: en-us
+    code-fold: false
+    code-link: true
+    code-tools: false
+    df-print: paged
+    fig-align: center
+    cap-location: top
+    lightbox: true
+    callout-appearance: simple
+    theme: [cosmo]
+
+google-scholar: true
