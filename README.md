@@ -19,8 +19,8 @@ The pipeline report is available [here](https://danielvartan.github.io/qr-code/)
 <table align="center">
   <tr align="center">
     <td>QR Code</td>
-      <td>+ Logo</td>
-      <td>+ Frame</td>
+    <td>+ Logo</td>
+    <td>+ Frame</td>
   </tr>
   <tr>
     <td><img src="images/qr-code.svg" height=200></td>
