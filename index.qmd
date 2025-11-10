@@ -27,6 +27,13 @@ library(rsvg)
 ```{r}
 #| include: false
 
+library(downlit)
+library(xml2)
+```
+
+```{r}
+#| include: false
+
 "https://linktr.ee/danielvartan" |>
   qr_code(ecl = "H") |>
   generate_svg(
